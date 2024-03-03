@@ -1,0 +1,97 @@
+{% extends "layout.html" %} {% block body %}
+<!-- Page Header-->
+<header
+  class="masthead"
+  style="background-image: url('      {{ url_for('static',filename='assets/img/home-bg.jpg')}}             ')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>ADMIN Panel</h1>
+          <span class="subheading">Manage your posts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--Flash content-->
+{% with messages = get_flashed_messages() %} {% if messages %}
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show mx-5 text-center px-1" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+{% endif %} {% endwith %}
+<!--End Flash Content-->
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+        <!-- <div>
+
+        <h1>File Uploader</h1>
+        <div>
+        <form id="uploader" action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="upload"
+                name="upload"
+                type="file"
+              />
+              <label for="upload">Upload your file for backgrounds</label>
+            <button
+            class="btn btn-primary text-uppercase mt-2 mb-2"
+            id="submitButton"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+        </form>
+    </div>
+
+
+
+        </div> -->
+
+        <div>
+        <h1>Your Blogs</h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% set num=namespace(value=1) %}
+            {% for post in posts%}
+              <tr>
+                <th scope="row">{{num.value}}</th>
+                <td>{{post.title}}</td>
+                <td>{{post.date}}</td>
+                <td><a href="/edit/{{post.sno}}"><button type="button" class="btn btn-success">EDIT</button></a></td>
+                <td><a href="/delete/{{post.sno}}"><button type="button" class="btn btn-danger">DELETE</button></a></td>
+                {% set num.value = num.value + 1 %}
+              </tr>
+              
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+          <div class="d-flex justify-content-around mt-2 mb-3">
+            <a href="/add"><button type="button" class="btn btn-info ">&nbsp;Add new Blog&nbsp;</button></a>
+            <a href="/logout"><button type="button" class="btn btn-secondary ">&nbsp;Logout&nbsp;</button></a>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

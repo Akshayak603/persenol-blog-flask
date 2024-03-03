@@ -1,0 +1,6 @@
+config.json
+.vscode
+venv_blog
+.env
+instance
+__pycache__
